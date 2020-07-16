@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper"> 	
+ 	
+	<resultMap id="userSelectMap" type="user">
+		<result property="userCode" 		column="user_code" 			jdbcType="VARCHAR"/>
+		<result property="userName"			column="user_name" 			jdbcType="VARCHAR" />
+		<result property="password" 		column="password" 			jdbcType="VARCHAR" />
+		<result property="role" 			column="role" 				jdbcType="VARCHAR" />
+		<result property="profileImg" 		column="profile_img" 		jdbcType="VARCHAR" />
+		<result property="selfIntroduce" 	column="self_introduce" 	jdbcType="VARCHAR" />
+		<result property="sex" 				column="sex" 				jdbcType="VARCHAR" />
+		<result property="birth" 			column="birth" 				jdbcType="NUMERIC" />
+		<result property="state" 			column="state" 				jdbcType="VARCHAR" />
+		<result property="googleId" 		column="google_id" 			jdbcType="VARCHAR" />
+		<result property="account" 			column="account" 			jdbcType="VARCHAR" />
+		<result property="primeCount" 		column="prime_count" 		jdbcType="NUMERIC" />
+		<result property="email" 			column="email" 				jdbcType="VARCHAR" />
+		<result property="regDate" 			column="reg_date" 			jdbcType="DATE" />		
+	</resultMap>	 
+	
+	
+		<!-- SQL : INSERT -->
+	<insert	id="addUser" parameterType="user" >
+	 	INSERT
+		INTO users('user_code' , user_name , password , role , profile_img, self_introduce, sex, birth, state, google_id, account, prime_count, email, varied_code, reg_date) 
+		VALUES (user_code, #{userName}, #{password:VARCHAR}, #{role:VARCHAR}, #{profileImg:VARCHAR}, #{selfIntroduce:VARCHAR}, #{sex:VARCHAR}, #{birth:NUMERIC}, #{state:VARCHAR}, #{googleId:VARCHAR}, #{account:VARCHAR}, #{primeCount:NUMERIC}, #{email:VARCHAR}, NOW())
+	 </insert>
+	 
+	 <select id="getUser" parameterType = "int" resultMap="userSelectMap">
+	 	SELET *
+	 	FROM users
+	 	WHERE user_code = #{value}	
+	 </select>
+	 
+	 	 
+	 <select id="getUserOne" parameterType = "user" resultMap="userSelectMap">
+	 	SELET 
+	 	FROM users
+	 		user_code = #{value} ,
+	 	WHERE user_code = #{value}	
+	 </select>	 	 
+	 	 
+	 	 
+	  <select id="getLastUserNum" parameterType = "int" resultType="int">
+	 	SELET COUNT(user_code) FROM users	 	
+	 </select>
+	 
+	 
+	 <update	id="updateUser"	parameterType="user" >
+	   	UPDATE users
+	   		user_name 	= #{userName} ,
+			password	= #{password},
+			self_introduce 	= #{selfIntroduce} ,
+			account	=	#{account} 			
+	   	WHERE user_code = #{userCode}
+	 </update>
+	 
+	 
+	 <delete id="deleteUser" parameterType="user">
+	 	DELETE 
+	 	FROM users 
+	 	WHERE user_code = #{value}
+	 </delete>
+	 
+	 
+	 
+	 	
+	 
+</mapper>
+
+
