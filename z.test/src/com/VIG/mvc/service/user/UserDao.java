@@ -18,10 +18,10 @@ public interface UserDao {
 	// delete 
 	public void deleteUser(User userCode) throws Exception;
 
-	// 회원정보리스트 
+
 	public List<User> getUserList(User user) throws Exception;
 	
-	
+	gg
 		
 	
 
